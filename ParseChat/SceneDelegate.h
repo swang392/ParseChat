@@ -2,7 +2,7 @@
 //  SceneDelegate.h
 //  ParseChat
 //
-//  Created by Elizabeth Ke on 7/6/21.
+//  Created by Sarah Wang on 7/6/21.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,7 +2,7 @@
 //  LoginViewController.m
 //  ParseChat
 //
-//  Created by Elizabeth Ke on 7/6/21.
+//  Created by Sarah Wang on 7/6/21.
 //
 
 #import "LoginViewController.h"
@@ -23,14 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.emptyAlert = [UIAlertController alertControllerWithTitle:@"Username or password field empty" message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-                                                     }];
+        // handle response here.
+    }];
     [self.emptyAlert addAction:okAction];
     
     self.registerErrorAlert = [UIAlertController alertControllerWithTitle:@"Error registering user" message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
@@ -45,31 +44,21 @@
     
     if ([self.usernameTextField.text isEqual:@""] || [self.passwordTextField.text isEqual:@""]) {
         [self presentViewController:self.emptyAlert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
             [self.activityIndicator stopAnimating];
         }];
     } else {
-        // initialize a user object
         PFUser *newUser = [PFUser user];
         
-        // set user properties
         newUser.username = self.usernameTextField.text;
-    //    newUser.email = self.emailField.text;
         newUser.password = self.passwordTextField.text;
         
-        // call sign up function on the object
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
             if (error != nil) {
-                NSLog(@"Error: %@", error.localizedDescription);
                 [self presentViewController:self.registerErrorAlert animated:YES completion:^{
-                    // optional code for what happens after the alert controller has finished presenting
                     [self.activityIndicator stopAnimating];
                 }];
             } else {
-                NSLog(@"User registered successfully");
                 [self.activityIndicator stopAnimating];
-
-                // manually segue to logged in view
             }
         }];
     }
@@ -80,7 +69,6 @@
     
     if ([self.usernameTextField.text isEqual:@""] || [self.passwordTextField.text isEqual:@""]) {
         [self presentViewController:self.emptyAlert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
             [self.activityIndicator stopAnimating];
         }];
     } else {
@@ -91,30 +79,15 @@
             if (error != nil) {
                 NSLog(@"User log in failed: %@", error.localizedDescription);
                 [self presentViewController:self.loginErrorAlert animated:YES completion:^{
-                    // optional code for what happens after the alert controller has finished presenting
                     [self.activityIndicator stopAnimating];
                 }];
             } else {
                 NSLog(@"User logged in successfully");
                 [self.activityIndicator stopAnimating];
                 [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-                // display view controller that needs to shown after successful login
             }
         }];
     }
-    
-    
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

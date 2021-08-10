@@ -2,7 +2,7 @@
 //  ChatViewController.m
 //  ParseChat
 //
-//  Created by Elizabeth Ke on 7/6/21.
+//  Created by Sarah Wang on 7/6/21.
 //
 
 #import "ChatViewController.h"
@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requeryChatFeed) userInfo:nil repeats:true];
     [self requeryChatFeed];
@@ -46,10 +45,9 @@
     chatMessage[@"user"] = PFUser.currentUser;
     [chatMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (succeeded) {
-            NSLog(@"The message was saved!");
             [self.messageTextField setText:@""];
         } else {
-            NSLog(@"Problem saving message: %@", error.localizedDescription);
+            //TODO: show error
         }
     }];
 }
@@ -59,7 +57,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     ChatCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ChatCell"];
     
     PFObject *message = self.messages[indexPath.row];
@@ -68,10 +65,8 @@
     PFUser *user = message[@"user"];
     
     if (user != nil) {
-        // User found! update username label with username
         cell.userLabel.text = user.username;
     } else {
-        // No user found, set default username
         cell.userLabel.text = @"Anonymous user";
     }
     
@@ -79,20 +74,15 @@
     NSURL *avatarURL = [NSURL URLWithString:[baseURLString stringByAppendingString:(user != nil ? user.username : @"default")]];
     [cell.avatarImageView setImageWithURL:avatarURL];
     return cell;
-    
-    
 }
 
 - (void)requeryChatFeed {
-    // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Message_FBU2021"];
     [query includeKey:@"user"];
     [query orderByDescending:@"createdAt"];
 
-    // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            // do something with the array of object returned by the call
             self.messages = posts;
             [self.tableView reloadData];
         } else {

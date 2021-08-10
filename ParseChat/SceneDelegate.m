@@ -2,7 +2,7 @@
 //  SceneDelegate.m
 //  ParseChat
 //
-//  Created by Elizabeth Ke on 7/6/21.
+//  Created by Sarah Wang on 7/6/21.
 //
 
 #import "SceneDelegate.h"
@@ -16,12 +16,8 @@
 
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     PFUser *user = [PFUser currentUser];
     if (user != nil) {
-        NSLog(@"Welcome back %@ 😀", user.username);
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *chatNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ChatNavigationController"];
         self.window.rootViewController = chatNavigationController;

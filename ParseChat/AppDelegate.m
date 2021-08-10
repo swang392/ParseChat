@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  ParseChat
 //
-//  Created by Elizabeth Ke on 7/6/21.
+//  Created by Sarah Wang on 7/6/21.
 //
 
 #import "AppDelegate.h"
@@ -16,7 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     ParseClientConfiguration *configuration = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
       configuration.applicationId = @"BgMeRhXN4Mfsr4iu7cg2PJPITPJgn9T4meopyWPG";
       configuration.clientKey = @"r6fZMD0BL8dZx0pVlYemVJbHwqaBtIRqO19SX40c";
